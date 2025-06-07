@@ -24,7 +24,7 @@ echo "Backing up MySQL database(s) to ${BACKUP_FILE}..."
 
 
 if [ "$MYSQL_DATABASE" = "all_databases" ]; then
-    mysqldump --host="$MYSQL_HOST" \
+    mariadb-dump --host="$MYSQL_HOST" \
               --port="$MYSQL_PORT" \
               --user="$MYSQL_USER" \
               --password="$MYSQL_PASSWORD" \
@@ -37,9 +37,10 @@ if [ "$MYSQL_DATABASE" = "all_databases" ]; then
               --add-drop-database \
               --add-drop-table \
               --default-character-set=utf8mb4 \
+              --skip-ssl \
               > "$BACKUP_FILE"
 else
-    mysqldump --host="$MYSQL_HOST" \
+    mariadb-dump --host="$MYSQL_HOST" \
               --port="$MYSQL_PORT" \
               --user="$MYSQL_USER" \
               --password="$MYSQL_PASSWORD" \
@@ -52,6 +53,7 @@ else
               --add-drop-database \
               --add-drop-table \
               --default-character-set=utf8mb4 \
+              --skip-ssl \
               > "$BACKUP_FILE"
 fi
 
